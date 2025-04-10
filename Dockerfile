@@ -9,4 +9,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["ng", "server", "--host", "0.0.0.0"]
+CMD ["npm", "deploy"]
