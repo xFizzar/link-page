@@ -12,4 +12,7 @@ export class AppComponent {
   title = 'link-page';
 
   auth = inject(AuthService);
+
+  constructor() {
+  }
 }
