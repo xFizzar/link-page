@@ -18,6 +18,11 @@ export class OverviewComponent {
     image: "proxmox.png",
     url: "http://10.0.0.5:8006"
   }
+  host_netdata: App = {
+    name: "Proxmox Netdata",
+    image: "netdata.png",
+    url: "http://10.0.0.5:19999"
+  }
 
   LXCs: App[] = [
     {name: "docker", image: 'docker.png', url: "10.0.0.200"},
