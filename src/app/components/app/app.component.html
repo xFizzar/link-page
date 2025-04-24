@@ -2,10 +2,10 @@
   <h3>{{ app().url }}</h3>
   @if (app().url.startsWith("http")) {
     <a [href]="app().url">
-      <img [ngSrc]="app().image" width="100" height="100" alt="App Image">
+      <img [ngSrc]="app().imageURL" width="100" height="100" alt="App Image">
     </a>
   } @else {
-    <img [ngSrc]="app().image" width="100" height="100" alt="App Image">
+    <img [ngSrc]="app().imageURL" width="100" height="100" alt="App Image">
   }
 
   <h2>{{ app().name }}</h2>

@@ -1,5 +1,6 @@
 export interface App {
   name: string,
   url: string,
-  image: string,
+  imageURL: string,
+  type: string
 }

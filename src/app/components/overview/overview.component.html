@@ -1,17 +1,17 @@
 <div class="container">
   <h1>Hosts</h1>
-  <div class="row m-2">
-    <div class="col-sm list-group">
-      <app-app [app]="host" />
+  @for (group of getChunks(hosts(), 3); track $index) {
+    <div class="row m-2">
+      @for (app of group; track app) {
+        <div class="col-sm list-group">
+          <app-app [app]="app"/>
+        </div>
+      }
     </div>
-    <div class="col-sm list-group">
-      <app-app [app]="host_netdata" />
-    </div>
-
-  </div>
+  }
 
   <h1>LXCs</h1>
-  @for (group of getChunks(LXCs, 3); track $index) {
+  @for (group of getChunks(LXCs(), 3); track $index) {
     <div class="row m-2">
       @for (app of group; track app) {
         <div class="col-sm list-group">
@@ -22,7 +22,7 @@
   }
 
   <h1>VMs</h1>
-  @for (group of getChunks(VMs, 3); track $index) {
+  @for (group of getChunks(VMs(), 3); track $index) {
     <div class="row m-2">
       @for (app of group; track app) {
         <div class="col-sm list-group">
