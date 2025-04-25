@@ -1,5 +1,8 @@
 <div class="container">
-  <h1>Hosts</h1>
+  <div class="d-flex justify-content-between">
+    <h1 class="d-inline">Hosts</h1>
+    <button type="button" class="btn btn-primary m-2" (click)="navigateToCreatePage()">Create App</button>
+  </div>
   @for (group of getChunks(hosts(), 3); track $index) {
     <div class="row m-2">
       @for (app of group; track app) {

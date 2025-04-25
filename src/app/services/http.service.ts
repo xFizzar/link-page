@@ -1,7 +1,7 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {App} from '../components/objects/interfaces';
+import {App, CreateApp} from '../components/objects/interfaces';
 import {Observable, of, tap} from 'rxjs';
 
 @Injectable({
@@ -36,8 +36,18 @@ export class HttpService {
       .get<App[]>(`${this.baseUrl}/apps`)
       .pipe(
         tap(apps => {
-          this._apps.set(this._apps().concat(apps));
+          apps.forEach(value => {
+            if (this._apps().filter(value1 => value1.id == value.id).length == 0) {
+              this._apps.set([...this._apps(), value]);
+            }
+          })
+          this._apps.set(this._apps().sort((a, b) => a.id - b.id))
         })
       )
+  }
+
+  createApp(app: CreateApp): Observable<App> {
+    return this.http
+      .post<App>(`${this.baseUrl}/createApp`, app);
   }
 }

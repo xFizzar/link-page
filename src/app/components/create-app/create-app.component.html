@@ -1,1 +1,60 @@
-<p>create-app works!</p>
+<form [formGroup]='createAppForm' (ngSubmit)='onSubmit()'
+      class="container p-4 border round shadow bg-white position-relative">
+
+  @if (validImage()) {
+    <img id="image" ngSrc="{{createAppForm.controls.imageURL.value}}/download" width="250" height="250" alt="Image">
+  }
+
+  <div class="mb-3">
+    <label class="mb-3">
+      Name:
+      <input class="form-control" formControlName="name" placeholder="Name">
+    </label>
+    @if (createAppForm.controls.name.invalid &&
+    (createAppForm.controls.name.touched || createAppForm.controls.name.dirty)) {
+      <div class="text-danger">Name must not be empty</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label class="mb-3">
+      URL:
+      <input class="form-control" formControlName="url" placeholder="URL">
+    </label>
+    @if (createAppForm.controls.url.invalid &&
+    (createAppForm.controls.url.touched || createAppForm.controls.url.dirty)) {
+      <div class="text-danger">URL must not be empty</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label class="mb-3">
+      Image URL (Image should be square, must be nextcloud share link, more coming soon):
+      <input class="form-control" formControlName="imageURL" placeholder="Image URL">
+    </label>
+    @if (createAppForm.controls.imageURL.invalid &&
+    (createAppForm.controls.imageURL.touched || createAppForm.controls.imageURL.dirty)) {
+      <div class="text-danger">Image URL must not be empty and valid</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label class="mb-3">
+      Type:
+      <select formControlName="type" class="form-control">
+        @for (type of types; track type) {
+          <option [ngValue]="type">{{ type }}</option>
+        }
+      </select>
+    </label>
+    @if (createAppForm.controls.type.invalid &&
+    (createAppForm.controls.type.touched || createAppForm.controls.type.dirty)) {
+      <div class="text-danger">Type must not be empty</div>
+    }
+  </div>
+
+  <button type='submit' class="btn btn-primary" [disabled]='!createAppForm.valid'>
+    Create App
+  </button>
+
+  @if (showError()) {
+    <div class="text-danger">Error while saving</div>
+  }
+</form>

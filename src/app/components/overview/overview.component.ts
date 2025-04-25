@@ -2,6 +2,7 @@ import {Component, inject, signal} from '@angular/core';
 import {AppComponent} from '../app/app.component';
 import {App} from '../objects/interfaces';
 import {HttpService} from '../../services/http.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-overview',
@@ -15,21 +16,21 @@ import {HttpService} from '../../services/http.service';
 export class OverviewComponent {
 
   http = inject(HttpService)
+  router = inject(Router);
 
   constructor() {
-   this.http.getAllApps().subscribe({
-     next: data => {
-       console.log(data);
-       let temp = data.map(item => {
-         item.imageURL = item.imageURL + "/download"
-         return item;
-       });
-       this.hosts.set(temp.filter(value => value.type = "HOST"));
-       this.LXCs.set(temp.filter(value => value.type = "LXC"));
-       this.VMs.set(temp.filter(value => value.type = "VM"));
-       // TODO fix types
-     }
-   })
+    this.http.getAllApps().subscribe({
+      next: () => {
+        let temp: App[] = this.http.apps().map(item => ({
+          ...item,
+          imageURL: item.imageURL + "/download",
+        }));
+
+        this.hosts.set(temp.filter(value => value.type == "HOST"));
+        this.LXCs.set(temp.filter(value => value.type == "LXC"));
+        this.VMs.set(temp.filter(value => value.type == "VM"));
+      }
+    })
   }
 
   hosts = signal<App[]>([]);
@@ -46,4 +47,7 @@ export class OverviewComponent {
 
   }
 
+  navigateToCreatePage() {
+    this.router.navigate(['/createApp']);
+  }
 }
