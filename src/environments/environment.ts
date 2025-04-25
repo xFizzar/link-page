@@ -1,4 +1,3 @@
 export const environment = {
-  // TODO baseUrl for prod
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://link-page-backend:8080/api",
 };
