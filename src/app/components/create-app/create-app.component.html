@@ -3,6 +3,8 @@
 
   @if (validImage()) {
     <img id="image" ngSrc="{{createAppForm.controls.imageURL.value}}/download" width="250" height="250" alt="Image">
+  } @else {
+    <img id="image" ngSrc="placeholder.png" width="250" height="250" alt="Image">
   }
 
   <div class="mb-3">
