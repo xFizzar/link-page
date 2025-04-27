@@ -1,3 +1,3 @@
 export const environment = {
-  baseURL: "http://localhost:4200/api",
+  baseURL: "http://link-page-backend:8080/api",
 };
