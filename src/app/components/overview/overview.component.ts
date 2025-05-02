@@ -3,14 +3,11 @@ import {AppComponent} from '../app/app.component';
 import {App} from '../objects/interfaces';
 import {HttpService} from '../../services/http.service';
 import {Router} from '@angular/router';
-import {ProxmoxHttpService} from '../../services/proxmox-http.service';
-import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-overview',
   imports: [
-    AppComponent,
-    JsonPipe
+    AppComponent
   ],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
@@ -19,7 +16,6 @@ import {JsonPipe} from '@angular/common';
 export class OverviewComponent {
 
   http = inject(HttpService)
-  protected proxmox = inject(ProxmoxHttpService)
   router = inject(Router);
 
   constructor() {
@@ -35,8 +31,6 @@ export class OverviewComponent {
         this.VMs.set(temp.filter(value => value.type == "VM"));
       }
     })
-
-    this.getStatus()
   }
 
   hosts = signal<App[]>([]);
@@ -56,16 +50,4 @@ export class OverviewComponent {
   navigateToCreatePage() {
     this.router.navigate(['/createApp']);
   }
-
-  status = signal<Object>({});
-
-  getStatus() {
-    return this.proxmox.getStatus()
-      .subscribe(
-        status => {
-          this.status.set(status);
-        }
-      )
-  }
-
 }
